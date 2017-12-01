@@ -26,3 +26,61 @@ export function addCardToDeck(deckTitle, card) {
       return deck;
     });
 }
+
+export function getAllDecksTemp() {
+  return [
+    {
+      title: 'React',
+      questions: [
+        {
+          question: 'What is React?',
+          answer: 'A library for managing user interfaces',
+        },
+        {
+          question: 'Where do you make Ajax requests in React?',
+          answer: 'The componentDidMount lifecycle event',
+        },
+      ],
+    },
+    {
+      title: 'JavaScript0',
+      questions: [
+        {
+          question: 'What is a closure?',
+          answer: 'The combination of a function and the lexical environment within which that function was declared.',
+        },
+      ],
+    },
+    {
+      title: 'JavaScript1',
+      questions: [],
+    },
+    {
+      title: 'JavaScript2',
+      questions: [
+        {
+          question: 'What is a closure?',
+          answer: 'The combination of a function and the lexical environment within which that function was declared.',
+        },
+      ],
+    },
+    {
+      title: 'JavaScript3',
+      questions: [
+        {
+          question: 'What is a closure?',
+          answer: 'The combination of a function and the lexical environment within which that function was declared.',
+        },
+      ],
+    },
+    {
+      title: 'JavaScript4',
+      questions: [
+        {
+          question: 'What is a closure?',
+          answer: 'The combination of a function and the lexical environment within which that function was declared.',
+        },
+      ],
+    },
+  ];
+}
