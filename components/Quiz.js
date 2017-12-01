@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Card from './Card';
 import { white, black, gray, green } from '../utils/colors';
+import ArrayIterator from 'es6-iterator/array';
 
 const QuizFinished = ({ styles, deck, percentage, ...props }) => (
   <View>
@@ -16,9 +17,9 @@ const QuizFinished = ({ styles, deck, percentage, ...props }) => (
     </TouchableOpacity>
     <TouchableOpacity
       style={styles.deckDetailsBtn}
-      onPress={() => props.navigation.navigate('Home', { deck: deck })}
+      onPress={() => props.navigation.navigate('DeckDetails', { deck: deck })}
     >
-      <Text style={styles.btnTextWhite}>All decks</Text>
+      <Text style={styles.btnTextWhite}>Deck Details</Text>
     </TouchableOpacity>
   </View>
 );
@@ -42,17 +43,16 @@ export default class Quiz extends React.Component {
     super(props);
 
     this.state = {
-      questionsIter: this.props.navigation.state.params.deck.questions.entries(),
+      questionsIter: new ArrayIterator(this.props.navigation.state.params.deck.questions, 'key+value'),
       correctAnswersCt: 0,
       currentCardNum: 0,
       currentCard: {},
       finished: false,
     };
 
-    // this.loadNextQuestion();
     this.incrementCorrectAnswerCount = this.incrementCorrectAnswerCount.bind(this);
     this.loadNextQuestion = this.loadNextQuestion.bind(this);
-  }
+  };
 
   incrementCorrectAnswerCount = () => {
     this.setState({
@@ -102,8 +102,8 @@ export default class Quiz extends React.Component {
           <View style={styles.container}>
             <Text style={styles.cardCount}>{currentCardNum} of {deck.questions.length}</Text>
             <Card
-              question={currentCard && currentCard.question}
-              answer={currentCard && currentCard.answer}
+              question={currentCard.question}
+              answer={currentCard.answer}
               incrementCorrectAnswerCount={this.incrementCorrectAnswerCount}
               loadNextQuestion={this.loadNextQuestion}
             />

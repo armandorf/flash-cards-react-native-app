@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { white, black, gray } from '../utils/colors';
+import { addCardToDeck } from '../utils/api';
 
 export default class NewCard extends React.Component {
 
@@ -29,9 +30,12 @@ export default class NewCard extends React.Component {
   };
 
   handleSubmit = () => {
-    // TODO: save to local storage
-    // TODO: send updated deck to 'DeckDetails'
-    this.props.navigation.navigate('DeckDetails', { deck: this.props.navigation.state.params.deck });
+    const card = {
+      question: this.state.questionText,
+      answer: this.state.answerText,
+    };
+    addCardToDeck(this.props.navigation.state.params.deck.title, card)
+      .then(deck => this.props.navigation.navigate('DeckDetails', { deck: deck }));
   };
 
   render() {
