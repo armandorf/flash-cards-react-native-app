@@ -2,8 +2,17 @@ import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { getAllDecksTemp } from '../utils/api';
 import DeckItem from './DeckItem';
+import { getAllDecks } from '../utils/api';
 
 export default class DeckList extends React.Component {
+
+  state = {
+    decks: [],
+  };
+
+  componentDidMount() {
+    getAllDecks().then(decks => this.setState({ decks: decks }));
+  }
 
   renderItem = ({ item }) => (
     <View style={styles.item}>
@@ -12,7 +21,7 @@ export default class DeckList extends React.Component {
   );
 
   render() {
-    const decks = getAllDecksTemp();
+    const { decks } = this.state;
 
     return (
       <View>

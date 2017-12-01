@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { white, black, gray } from '../utils/colors';
+import { saveDeck } from '../utils/api';
 
 export default class NewDeck extends React.Component {
 
@@ -22,8 +24,8 @@ export default class NewDeck extends React.Component {
   };
 
   handleSubmit = () => {
-    // TODO: save to local storage
-    this.props.navigation.navigate('Home');
+    saveDeck(this.state.deckTitle)
+      .then(deck => this.props.navigation.navigate('DeckDetails', { deck: deck }));
   };
 
   render() {
