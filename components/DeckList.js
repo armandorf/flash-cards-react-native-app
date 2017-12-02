@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { getAllDecksTemp } from '../utils/api';
 import DeckItem from './DeckItem';
 import { getAllDecks } from '../utils/api';
 
@@ -11,7 +10,21 @@ export default class DeckList extends React.Component {
   };
 
   componentDidMount() {
-    getAllDecks().then(decks => this.setState({ decks: decks }));
+    // sort decks by title (ascending)
+    getAllDecks().then(decks => {
+      decks.sort((a, b) => {
+        titleA = a.title.toLowerCase();
+        titleB = b.title.toLowerCase();
+        if (titleA < titleB) {
+          return -1;
+        } else if (titleA > titleB) {
+          return 1;
+        } else {
+          return 1;
+        }
+      });
+      this.setState({ decks: decks });
+    });
   }
 
   renderItem = ({ item }) => (
