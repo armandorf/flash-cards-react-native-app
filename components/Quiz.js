@@ -1,8 +1,27 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import Card from './Card';
 import { white, black, gray, green } from '../utils/colors';
 import ArrayIterator from 'es6-iterator/array';
+
+const resetToDeckDetails = deck => NavigationActions.reset({
+  index: 1,
+  actions: [
+    NavigationActions.navigate({
+      routeName: 'Home',
+      params: {
+        deck: deck,
+      },
+    }),
+    NavigationActions.navigate({
+      routeName: 'DeckDetails',
+      params: {
+        deck: deck,
+      },
+    }),
+  ],
+});
 
 const QuizFinished = ({ styles, deck, percentage, ...props }) => (
   <View>
@@ -17,7 +36,7 @@ const QuizFinished = ({ styles, deck, percentage, ...props }) => (
     </TouchableOpacity>
     <TouchableOpacity
       style={styles.deckDetailsBtn}
-      onPress={() => props.navigation.navigate('DeckDetails', { deck: deck })}
+      onPress={() => props.navigation.dispatch(resetToDeckDetails(deck))}
     >
       <Text style={styles.btnTextWhite}>Deck Details</Text>
     </TouchableOpacity>
