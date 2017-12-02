@@ -3,12 +3,11 @@ import { StyleSheet, Text, View, StatusBar, AsyncStorage } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Constants } from 'expo';
 import DeckList from './components/DeckList';
-import DeckItem from './components/DeckItem';
 import NewDeck from './components/NewDeck';
 import Deck from './components/Deck';
 import Quiz from './components/Quiz';
 import NewCard from './components/NewCard';
-import { purple, white, black, gray } from './utils/colors';
+import { white, black } from './utils/colors';
 
 function CardsStatusBar({ backgroundColor, ...props }) {
   return (

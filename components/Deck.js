@@ -2,30 +2,28 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { purple, white, black, gray, orange, blue, green } from '../utils/colors';
 
-export default class Deck extends React.Component {
+export default function Deck({ navigation }) {
 
-  render() {
-    const { deck } = this.props.navigation.state.params;
+  const { deck } = navigation.state.params;
 
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>{deck.title}</Text>
-        <Text style={styles.cardCount}>{deck.questions.length} cards</Text>
-        <TouchableOpacity
-          style={styles.addCardBtn}
-          onPress={() => this.props.navigation.navigate('NewCard', { deck: deck })}
-        >
-          <Text style={styles.addCardBtnText}>Add Card</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.startQuizBtn}
-          onPress={() => this.props.navigation.navigate('Quiz', { deck: deck })}
-        >
-          <Text style={styles.startQuizBtnText}>Start Quiz</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{deck.title}</Text>
+      <Text style={styles.cardCount}>{deck.questions.length} cards</Text>
+      <TouchableOpacity
+        style={styles.addCardBtn}
+        onPress={() => navigation.navigate('NewCard', { deck: deck })}
+      >
+        <Text style={styles.addCardBtnText}>Add Card</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.startQuizBtn}
+        onPress={() => navigation.navigate('Quiz', { deck: deck })}
+      >
+        <Text style={styles.startQuizBtnText}>Start Quiz</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
