@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
+import PropTypes from 'prop-types';
 import DeckItem from './DeckItem';
 import { getAllDecks } from '../utils/api';
 
@@ -57,3 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+DeckList.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import PropTypes from 'prop-types';
 import { purple, white, black, gray, orange, blue, green } from '../utils/colors';
 
 export default function Deck({ navigation }) {
@@ -76,3 +77,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+Deck.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

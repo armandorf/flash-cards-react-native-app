@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
-import { purple, white, black, gray, orange, blue, green } from '../utils/colors';
+import PropTypes from 'prop-types';
+import { white, black, gray, orange, green } from '../utils/colors';
 
 export default class Card extends React.Component {
 
@@ -119,3 +120,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+Card.propTypes = {
+  question: PropTypes.string.isRequired,
+  answer: PropTypes.string.isRequired,
+  incrementCorrectAnswerCount: PropTypes.func.isRequired,
+  loadNextQuestion: PropTypes.func.isRequired,
+};

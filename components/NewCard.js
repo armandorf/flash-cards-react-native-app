@@ -8,8 +8,9 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import { white, black, gray } from '../utils/colors';
+import PropTypes from 'prop-types';
 import { addCardToDeck } from '../utils/api';
+import { white, black, gray } from '../utils/colors';
 
 export default class NewCard extends React.Component {
 
@@ -120,3 +121,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+NewCard.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

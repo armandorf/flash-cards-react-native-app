@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import PropTypes from 'prop-types';
 import { gray, white } from '../utils/colors';
 
 export default function DeckItem({ deck, navigation }) {
@@ -30,3 +31,8 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
 });
+
+DeckItem.propTypes = {
+  deck: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+};

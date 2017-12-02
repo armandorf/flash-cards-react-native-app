@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import PropTypes from 'prop-types';
 import Card from './Card';
-import { white, black, gray, green } from '../utils/colors';
 import ArrayIterator from 'es6-iterator/array';
+import { white, black, gray, green } from '../utils/colors';
 
-const QuizFinished = ({ styles, deck, percentage, ...props }) => {
+const QuizFinished = ({ styles, deck, percentage, navigation }) => {
 
   const resetToDeckDetails = deck => NavigationActions.reset({
     index: 1,
@@ -56,13 +57,13 @@ const QuizFinished = ({ styles, deck, percentage, ...props }) => {
       <Text style={styles.percentageResult}>{percentage}%</Text>
       <TouchableOpacity
         style={styles.retakeQuizBtn}
-        onPress={() => props.navigation.dispatch(resetToStartQuiz(deck))}
+        onPress={() => navigation.dispatch(resetToStartQuiz(deck))}
       >
         <Text style={styles.btnText}>Retake quiz?</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.deckDetailsBtn}
-        onPress={() => props.navigation.dispatch(resetToDeckDetails(deck))}
+        onPress={() => navigation.dispatch(resetToDeckDetails(deck))}
       >
         <Text style={styles.btnTextWhite}>Deck Details</Text>
       </TouchableOpacity>
@@ -70,7 +71,7 @@ const QuizFinished = ({ styles, deck, percentage, ...props }) => {
   );
 };
 
-const EmptyDeck = ({ styles, deck, percentage, ...props }) => (
+const EmptyDeck = ({ styles, deck, navigation }) => (
   <View>
     <Text style={styles.noQuestionsText}>This deck is empty</Text>
     <Text style={styles.addCartText}>Please add some questions or go back to see deck details</Text>
@@ -131,7 +132,8 @@ export default class Quiz extends React.Component {
   calculatePercentage = numOfQuestions => parseFloat(this.state.correctAnswersCt * 100 / numOfQuestions).toFixed(2);
 
   render() {
-    const { deck } = this.props.navigation.state.params;
+    const { navigation } = this.props;
+    const { deck } = navigation.state.params;
     const { currentCard, currentCardNum, finished } = this.state;
     const deckEmpty = deck.questions.length === 0;
 
@@ -141,7 +143,7 @@ export default class Quiz extends React.Component {
           <EmptyDeck
             styles={styles}
             deck={deck}
-            {...this.props}
+            navigation={navigation}
           />
         }
         {(!finished && !deckEmpty) &&
@@ -160,7 +162,7 @@ export default class Quiz extends React.Component {
             styles={styles}
             percentage={this.calculatePercentage(deck.questions.length)}
             deck={deck}
-            {...this.props}
+            navigation={navigation}
           />
         }
       </View>
@@ -251,3 +253,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+QuizFinished.propTypes = {
+  styles: PropTypes.object.isRequired,
+  deck: PropTypes.object.isRequired,
+  percentage: PropTypes.string.isRequired,
+  navigation: PropTypes.object.isRequired,
+};
+
+EmptyDeck.propTypes = {
+  styles: PropTypes.object.isRequired,
+  deck: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+};
+
+Quiz.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
