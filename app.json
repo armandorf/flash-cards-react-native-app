@@ -1,5 +1,13 @@
 {
   "expo": {
-    "sdkVersion": "22.0.0"
+    "sdkVersion": "22.0.0",
+    "orientation": "portrait",
+    "name": "Flashcards",
+    "description": "Quiz yourself and learn a little more every day.",
+    "slug": "pf",
+    "version": "1.0",
+    "android": {
+      "package": "org.pfflascards.exp"
+    }
   }
 }
