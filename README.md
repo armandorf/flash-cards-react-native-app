@@ -26,4 +26,4 @@ $ npm start
 * es6-iterator
 
 ## Contributing
-This repository is the third and final project in Udacity's React Nanodegree. If you have any suggestions, want to discuss the approach I took to design and implement the app or anything else, please feel free to contact me to have a chat about it.
+This repository is the third and final project in [Udacity's React Nanodegree](https://www.udacity.com/course/react-nanodegree--nd019). If you have any suggestions, want to discuss the approach I took to design and implement the app or anything else, please feel free to contact me to have a chat about it.
