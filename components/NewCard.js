@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { white, black, gray } from '../utils/colors';
 import { addCardToDeck } from '../utils/api';
 
@@ -29,13 +30,31 @@ export default class NewCard extends React.Component {
     });
   };
 
+  resetToDeckDetails = deck => NavigationActions.reset({
+    index: 1,
+    actions: [
+      NavigationActions.navigate({
+        routeName: 'Home',
+        params: {
+          deck: deck,
+        },
+      }),
+      NavigationActions.navigate({
+        routeName: 'DeckDetails',
+        params: {
+          deck: deck,
+        },
+      }),
+    ],
+  });
+
   handleSubmit = () => {
     const card = {
       question: this.state.questionText,
       answer: this.state.answerText,
     };
     addCardToDeck(this.props.navigation.state.params.deck.title, card)
-      .then(deck => this.props.navigation.navigate('DeckDetails', { deck: deck }));
+      .then(deck => this.props.navigation.dispatch(this.resetToDeckDetails(deck)));
   };
 
   render() {

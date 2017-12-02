@@ -5,43 +5,70 @@ import Card from './Card';
 import { white, black, gray, green } from '../utils/colors';
 import ArrayIterator from 'es6-iterator/array';
 
-const resetToDeckDetails = deck => NavigationActions.reset({
-  index: 1,
-  actions: [
-    NavigationActions.navigate({
-      routeName: 'Home',
-      params: {
-        deck: deck,
-      },
-    }),
-    NavigationActions.navigate({
-      routeName: 'DeckDetails',
-      params: {
-        deck: deck,
-      },
-    }),
-  ],
-});
+const QuizFinished = ({ styles, deck, percentage, ...props }) => {
 
-const QuizFinished = ({ styles, deck, percentage, ...props }) => (
-  <View>
-    <Text style={styles.goodJobText}>Good job!</Text>
-    <Text style={styles.percentageText}>Correct answers percentage: </Text>
-    <Text style={styles.percentageResult}>{percentage}%</Text>
-    <TouchableOpacity
-      style={styles.retakeQuizBtn}
-      onPress={() => props.navigation.navigate('Quiz', { deck: deck })}
-    >
-      <Text style={styles.btnText}>Retake quiz?</Text>
-    </TouchableOpacity>
-    <TouchableOpacity
-      style={styles.deckDetailsBtn}
-      onPress={() => props.navigation.dispatch(resetToDeckDetails(deck))}
-    >
-      <Text style={styles.btnTextWhite}>Deck Details</Text>
-    </TouchableOpacity>
-  </View>
-);
+  const resetToDeckDetails = deck => NavigationActions.reset({
+    index: 1,
+    actions: [
+      NavigationActions.navigate({
+        routeName: 'Home',
+        params: {
+          deck: deck,
+        },
+      }),
+      NavigationActions.navigate({
+        routeName: 'DeckDetails',
+        params: {
+          deck: deck,
+        },
+      }),
+    ],
+  });
+
+  const resetToStartQuiz = deck => NavigationActions.reset({
+    index: 2,
+    actions: [
+      NavigationActions.navigate({
+        routeName: 'Home',
+        params: {
+          deck: deck,
+        },
+      }),
+      NavigationActions.navigate({
+        routeName: 'DeckDetails',
+        params: {
+          deck: deck,
+        },
+      }),
+      NavigationActions.navigate({
+        routeName: 'Quiz',
+        params: {
+          deck: deck,
+        },
+      }),
+    ],
+  });
+
+  return (
+    <View>
+      <Text style={styles.goodJobText}>Good job!</Text>
+      <Text style={styles.percentageText}>Correct answers percentage: </Text>
+      <Text style={styles.percentageResult}>{percentage}%</Text>
+      <TouchableOpacity
+        style={styles.retakeQuizBtn}
+        onPress={() => props.navigation.dispatch(resetToStartQuiz(deck))}
+      >
+        <Text style={styles.btnText}>Retake quiz?</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.deckDetailsBtn}
+        onPress={() => props.navigation.dispatch(resetToDeckDetails(deck))}
+      >
+        <Text style={styles.btnTextWhite}>Deck Details</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const EmptyDeck = ({ styles, deck, percentage, ...props }) => (
   <View>
@@ -101,7 +128,7 @@ export default class Quiz extends React.Component {
     }
   };
 
-  calculatePercentage = numOfQuestions => this.state.correctAnswersCt * 100 / numOfQuestions;
+  calculatePercentage = numOfQuestions => parseFloat(this.state.correctAnswersCt * 100 / numOfQuestions).toFixed(2);
 
   render() {
     const { deck } = this.props.navigation.state.params;

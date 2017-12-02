@@ -23,9 +23,27 @@ export default class NewDeck extends React.Component {
     });
   };
 
+  resetToDeckDetails = deck => NavigationActions.reset({
+    index: 1,
+    actions: [
+      NavigationActions.navigate({
+        routeName: 'Home',
+        params: {
+          deck: deck,
+        },
+      }),
+      NavigationActions.navigate({
+        routeName: 'DeckDetails',
+        params: {
+          deck: deck,
+        },
+      }),
+    ],
+  });
+
   handleSubmit = () => {
     saveDeck(this.state.deckTitle)
-      .then(deck => this.props.navigation.navigate('DeckDetails', { deck: deck }));
+      .then(deck => this.props.navigation.dispatch(this.resetToDeckDetails(deck)));
   };
 
   render() {
