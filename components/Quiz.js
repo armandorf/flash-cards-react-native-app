@@ -81,7 +81,7 @@ const EmptyDeck = ({ styles, deck, navigation }) => (
     <Text style={styles.addCartText}>Please add some questions or go back to see deck details</Text>
     <TouchableOpacity
       style={styles.addCardBtn}
-      onPress={() => props.navigation.navigate('NewCard', { deck: deck })}
+      onPress={() => navigation.navigate('NewCard', { deck: deck })}
     >
       <Text style={styles.btnText}>Add Card</Text>
     </TouchableOpacity>
