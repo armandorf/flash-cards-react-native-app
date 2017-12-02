@@ -11,8 +11,8 @@ export default class DeckList extends React.Component {
   };
 
   componentDidMount() {
-    // sort decks by title (ascending)
     getAllDecks().then(decks => {
+      // sort decks by title (ascending)
       decks.sort((a, b) => {
         titleA = a.title.toLowerCase();
         titleB = b.title.toLowerCase();

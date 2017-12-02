@@ -4,6 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import PropTypes from 'prop-types';
 import Card from './Card';
 import ArrayIterator from 'es6-iterator/array';
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 import { white, black, gray, green } from '../utils/colors';
 
 const QuizFinished = ({ styles, deck, percentage, navigation }) => {
@@ -49,6 +50,9 @@ const QuizFinished = ({ styles, deck, percentage, navigation }) => {
       }),
     ],
   });
+
+  // quiz has finished, so clear today's notification and schedule tomorrow's
+  clearLocalNotification().then(setLocalNotification);
 
   return (
     <View>

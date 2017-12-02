@@ -1,8 +1,12 @@
 import { AsyncStorage } from 'react-native';
+import { NOTIFICATION_KEY } from './helpers';
 
 export function getAllDecks() {
   return AsyncStorage.getAllKeys()
-    .then(deckTitles => AsyncStorage.multiGet(deckTitles, (err, stores) => stores))
+    .then(storageKeys => {
+      const deckTitlesOnly = storageKeys.filter(key => key !== NOTIFICATION_KEY);
+      return AsyncStorage.multiGet(deckTitlesOnly, (err, stores) => stores);
+    })
     .then(stores => stores.map(result => JSON.parse(result[1])));
 }
 
